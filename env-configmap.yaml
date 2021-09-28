@@ -1,0 +1,14 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: env-configmap
+data:
+  # Configuration values can be set as key-value properties
+  POSTGRES_DB: udagramdb
+  POSTGRES_HOST: udagramrajivinstance.csckvju1v5x0.us-east-2.rds.amazonaws.com
+  AWS_BUCKET: udagram-rajivpandey-dev
+  AWS_MEDIA_BUCKET: udagram-rajivpandey-dev
+  AWS_REGION: us-east-2
+  AWS_PROFILE: default
+  JWT_SECRET: hello
+  URL: http://a0e13dcc514a447499dd1832e684a50c-532505197.us-east-2.elb.amazonaws.com:8100

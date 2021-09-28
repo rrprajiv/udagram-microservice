@@ -18,6 +18,9 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
   }
 
   const token = tokenBearer[1];
+
+  console.log(`[inside requireAuth] token : ${token}`);
+
   return jwt.verify(token, c.config.jwt.secret, (err, decoded) => {
     if (err) {
       return res.status(500).send({auth: false, message: 'Failed to authenticate.'});
@@ -29,6 +32,9 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
   const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
+
+  console.log(`[inside get] items.rows.length : ${items.rows.length}`);
+
   items.rows.map((item) => {
     if (item.url) {
       item.url = AWS.getGetSignedUrl(item.url);
@@ -50,6 +56,9 @@ router.get('/signed-url/:fileName',
     requireAuth,
     async (req: Request, res: Response) => {
       const {fileName} = req.params;
+
+      console.log(`[inside get-a-signed-url] fileName : ${fileName}`);
+
       const url = AWS.getPutSignedUrl(fileName);
       res.status(201).send({url: url});
     });
@@ -61,6 +70,7 @@ router.post('/',
       const caption = req.body.caption;
       const fileName = req.body.url; // same as S3 key name
 
+      console.log(`[inside post] caption : ${caption} fileName : ${fileName}`);
       if (!caption) {
         return res.status(400).send({message: 'Caption is required or malformed.'});
       }
@@ -75,6 +85,8 @@ router.post('/',
       });
 
       const savedItem = await item.save();
+
+      console.log(`[inside post] savedItem : ${savedItem}`);
 
       savedItem.url = AWS.getGetSignedUrl(savedItem.url);
       res.status(201).send(savedItem);

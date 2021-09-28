@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend-feed
+    service: backend-feed
+  name: backend-feed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: backend-feed
+  template:
+    metadata:
+      labels:
+        service: backend-feed
+    spec:
+      containers:
+      - name: backend-feed
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: env-secret
+        image: rajivrrp/udagram-api-feed:v1
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws"
+          readOnly: true
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret

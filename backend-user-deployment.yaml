@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend-user
+    service: backend-user
+  name: backend-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: backend-user
+  template:
+    metadata:
+      labels:
+        service: backend-user
+    spec:
+      containers:
+      - name: backend-user
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: env-secret
+        image: rajivrrp/udagram-api-user:v1
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws"
+          readOnly: true
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
