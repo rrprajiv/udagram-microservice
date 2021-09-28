@@ -2,7 +2,7 @@
 To help review your infrastructure, please include the following screenshots in this directory::
 
 ## Deployment Pipeline
-* [DockerHub showing containers that you have pushed] (exhibit-1-dockerhub-images.jpg)
+* [DockerHub showing containers that you have pushed] (https://github.com/rrprajiv/udagram-microservice/blob/main/screenshots/exhibit-1-dockerhub-images.jpg)
 * GitHub repository’s settings showing your Travis webhook (can be found in Settings - Webhook)
 * Travis CI showing a successful build and deploy job
 
