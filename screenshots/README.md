@@ -16,7 +16,7 @@ kubectl get pods
 kubectl describe services
 ```
 * [To verify that you have horizontal scaling set against CPU usage](https://github.com/rrprajiv/udagram-microservice/blob/main/screenshots/exhibit-8-describe-hpa.jpg)
-*    [modified screen capture](https://github.com/rrprajiv/udagram-microservice/blob/main/screenshots/exhibit-11-describe-hpa.jpg)
+*    [modified screen capture - after review feedback](https://github.com/rrprajiv/udagram-microservice/blob/main/screenshots/exhibit-11-describe-hpa.jpg)
 ```bash
 kubectl describe hpa
 ```
